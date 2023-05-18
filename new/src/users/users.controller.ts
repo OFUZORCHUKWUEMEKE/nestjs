@@ -1,5 +1,7 @@
 import { Controller ,Get ,Post ,Body,Param ,HttpCode ,HttpStatus ,Patch, Delete} from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto/create-user.dto';
+import { UpdateUserDto } from './dto/update.dto/update.dto';
 
 @Controller('users')
 export class UsersController {
@@ -18,14 +20,14 @@ export class UsersController {
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
-    getPost(@Body('name') body){
-        console.log(body)
-        return body
+    getPost(@Body('name') createbodyDto:CreateUserDto){
+        console.log(createbodyDto)
+        return createbodyDto
     }
 
     @Patch(':id')
     @HttpCode(HttpStatus.CONTINUE)
-    update(@Param('id') id:string,@Body() body){
+    update(@Param('id') id:string,@Body() body:UpdateUserDto){
        return 'Updated a single id'
     }
 
