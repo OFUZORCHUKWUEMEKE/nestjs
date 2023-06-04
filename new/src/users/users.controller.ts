@@ -1,40 +1,35 @@
 import { Controller ,Get ,Post ,Body,Param ,HttpCode ,HttpStatus ,Patch, Delete} from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto/create-user.dto';
-import { UpdateUserDto } from './dto/update.dto/update.dto';
+import { CreateCoffeeDto } from './dto/create-user.dto/create-user.dto';
+import { UpdateCoffeeDto } from './dto/update.dto/update.dto';
 
-@Controller('users')
+@Controller('coffee')
 export class UsersController {
     constructor(private readonly userservice:UsersService){}
-    @Get()
-    getName(){
-        // console.log(this.userservice.getName())
-        return this.userservice.findAll()
-    }
+ 
 
-    @Get(':id')
+    @Get('/:id')
     @HttpCode(HttpStatus.CONTINUE)
     findOne(@Param('id') id) {
         return this.userservice.findOne(id)
     }
 
-    @Post()
+    @Post('/create')
     @HttpCode(HttpStatus.CREATED)
-    getPost(@Body('name') createbodyDto:CreateUserDto){
-        console.log(createbodyDto)
-        return createbodyDto
+    get(@Body() createbodyDto:CreateCoffeeDto){
+        return this.userservice.create(createbodyDto)
     }
 
-    @Patch(':id')
+    @Patch('/:id')
     @HttpCode(HttpStatus.CONTINUE)
-    update(@Param('id') id:string,@Body() body:UpdateUserDto){
-       return 'Updated a single id'
+    update(@Param('id') id:string,@Body() body:UpdateCoffeeDto){
+       return this.userservice.update(id,body)
     }
 
     @Delete('id')
     @HttpCode(HttpStatus.CONTINUE)
     delete(@Param('id') id:string){
-        return 'Item deleted successfully'
+        return this.userservice.remove(id)
     }
 
 }
