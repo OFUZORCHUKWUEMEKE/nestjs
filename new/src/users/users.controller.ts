@@ -1,16 +1,24 @@
-import { Controller ,Get ,Post ,Body,Param ,HttpCode ,HttpStatus ,Patch, Delete} from '@nestjs/common';
+import { Controller ,Get ,Post ,Body,Param ,HttpCode ,HttpStatus ,Patch, Delete, Query} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateCoffeeDto } from './dto/create-user.dto/create-user.dto';
 import { UpdateCoffeeDto } from './dto/update.dto/update.dto';
+import { PaginationQueryDto } from 'src/common/pagination-query.dto';
 
 @Controller('coffee')
 export class UsersController {
     constructor(private readonly userservice:UsersService){}
+
+    @Get('')
+    @HttpCode(HttpStatus.ACCEPTED)
+    findAll(@Query() paginationQuery:PaginationQueryDto){
+        return this.userservice.findAll(paginationQuery)
+    }
  
 
-    @Get('/:id')
+    @Get(':id')
     @HttpCode(HttpStatus.CONTINUE)
     findOne(@Param('id') id) {
+        console.log(id)
         return this.userservice.findOne(id)
     }
 
@@ -20,7 +28,7 @@ export class UsersController {
         return this.userservice.create(createbodyDto)
     }
 
-    @Patch('/:id')
+    @Patch(':id')
     @HttpCode(HttpStatus.CONTINUE)
     update(@Param('id') id:string,@Body() body:UpdateCoffeeDto){
        return this.userservice.update(id,body)
