@@ -9,6 +9,7 @@ import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import Joi from '@hapi/joi';
 import { APP_PIPE } from '@nestjs/core';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [UsersModule,TypeOrmModule.forRoot({
@@ -28,7 +29,7 @@ import { APP_PIPE } from '@nestjs/core';
     //   DATABASE_PORT:Joi.number().default(5432)
     // })
     // ignoreEnvFile:true
-  })],
+  }), CommonModule],
   controllers: [AppController],
   providers: [AppService,{
     provide:APP_PIPE,

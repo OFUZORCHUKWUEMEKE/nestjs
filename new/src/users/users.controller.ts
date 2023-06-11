@@ -3,12 +3,14 @@ import { UsersService } from './users.service';
 import { CreateCoffeeDto } from './dto/create-user.dto/create-user.dto';
 import { UpdateCoffeeDto } from './dto/update.dto/update.dto';
 import { PaginationQueryDto } from 'src/common/pagination-query.dto';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @UsePipes(ValidationPipe)
 @Controller('coffee')
 export class UsersController {
     constructor(private readonly userservice:UsersService){}
-
+    
+    @Public()
     @Get('')
     @HttpCode(HttpStatus.ACCEPTED)
     findAll(@Query() paginationQuery:PaginationQueryDto){
