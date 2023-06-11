@@ -5,6 +5,7 @@ import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import {TypeOrmModule} from '@nestjs/typeorm'
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [UsersModule,TypeOrmModule.forRoot({
@@ -16,7 +17,7 @@ import {TypeOrmModule} from '@nestjs/typeorm'
     database:'postgres',
     autoLoadEntities:true,
     synchronize:true
-  })],
+  }), DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })
