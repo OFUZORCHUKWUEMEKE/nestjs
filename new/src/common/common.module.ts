@@ -6,7 +6,7 @@ import {ConfigModule} from '@nestjs/config'
 @Module({
     imports:[ConfigModule],
     providers:[{
-        provide:'API_GUARD',
+        provide:APP_GUARD,
         useClass:ApiKeyGuard
     }]
 })

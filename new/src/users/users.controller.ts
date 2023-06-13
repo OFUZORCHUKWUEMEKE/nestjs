@@ -4,7 +4,9 @@ import { CreateCoffeeDto } from './dto/create-user.dto/create-user.dto';
 import { UpdateCoffeeDto } from './dto/update.dto/update.dto';
 import { PaginationQueryDto } from 'src/common/pagination-query.dto';
 import { Public } from 'src/common/decorators/public.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('coffees')
 @UsePipes(ValidationPipe)
 @Controller('coffee')
 export class UsersController {
